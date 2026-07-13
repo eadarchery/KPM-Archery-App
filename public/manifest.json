@@ -1,0 +1,37 @@
+{
+  "name": "EAD Archery Scene Monitor",
+  "short_name": "ASM",
+  "description": "Archer development tracking for school archery programmes — EAD × KPM. Bring archers' next step further.",
+  "theme_color": "#ff6a18",
+  "background_color": "#f4f2ee",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "start_url": "/",
+  "lang": "en",
+  "categories": ["sports", "education"],
+  "icons": [
+    {
+      "src": "/icons/pwa-64x64.png",
+      "sizes": "64x64",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/pwa-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/pwa-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/maskable-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "screenshots": []
+}

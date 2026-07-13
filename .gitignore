@@ -1,0 +1,43 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Build output
+dist/
+dist-ssr/
+*.local
+
+# Environment — never commit real secrets
+.env
+.env.local
+.env.*.local
+
+# Editor
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# TypeScript
+*.tsbuildinfo
+
+# Agent tooling (not part of the app build)
+.agents/
+
+# PWA dev build artifact
+dev-dist/
+.claude/settings.json
+.claude/settings.local.json

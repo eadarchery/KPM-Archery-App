@@ -1,0 +1,327 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================================
+   DESIGN TOKENS — CSS custom properties
+   Matches the original HTML app exactly so the look is preserved.
+   Dark mode is driven by [data-theme="dark"] on <html>.
+   ============================================================ */
+
+:root,
+[data-theme="light"] {
+  --bg: #f4f2ee;
+  --bg-2: #efece6;
+  --surface: #ffffff;
+  --surface-soft: #f6f4f0;
+  --section: #f0ede7;
+  --field: #ffffff;
+
+  --text: #1a1613;
+  --text-dim: #5c554d;
+  --text-faint: #8a8178;
+
+  --primary: #ff6a18;
+  --primary-hover: #e85b0c;
+  --on-primary: #1c1208;
+
+  --danger: #d92d20;
+  --success: #16a34a;
+  --warning: #d97706;
+
+  --danger-soft: rgba(217, 45, 32, 0.12);
+  --success-soft: rgba(22, 163, 74, 0.12);
+  --warning-soft: rgba(217, 119, 6, 0.13);
+  --primary-soft: rgba(255, 106, 24, 0.12);
+
+  --line: rgba(26, 22, 19, 0.1);
+  --line-strong: rgba(26, 22, 19, 0.16);
+
+  --shadow: 0 1px 2px rgba(26, 22, 19, 0.04), 0 14px 30px rgba(26, 22, 19, 0.07);
+  --shadow-lg: 0 2px 6px rgba(26, 22, 19, 0.06), 0 28px 60px rgba(26, 22, 19, 0.14);
+
+  --header: rgba(244, 242, 238, 0.82);
+  --scrim: rgba(20, 16, 12, 0.5);
+
+  /* Radii */
+  --r-sm: 9px;
+  --r-md: 11px;
+  --r: 13px;
+  --r-lg: 18px;
+  --r-xl: 24px;
+
+  /* Easing */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-spring: cubic-bezier(0.34, 1.4, 0.64, 1);
+
+  /* Safe areas */
+  --safe-b: env(safe-area-inset-bottom, 0px);
+  --safe-t: env(safe-area-inset-top, 0px);
+}
+
+[data-theme="dark"] {
+  --bg: #141310;
+  --bg-2: #100f0c;
+  --surface: #1d1b16;
+  --surface-soft: #25221c;
+  --section: #2a261f;
+  --field: #131210;
+
+  --text: #f6f3ec;
+  --text-dim: #b3aca1;
+  --text-faint: #8a8378;
+
+  --primary: #ff7d2e;
+  --primary-hover: #ff6a18;
+  --on-primary: #1a1108;
+
+  --danger: #f87171;
+  --success: #4ade80;
+  --warning: #fbbf24;
+
+  --danger-soft: rgba(248, 113, 113, 0.16);
+  --success-soft: rgba(74, 222, 128, 0.15);
+  --warning-soft: rgba(251, 191, 36, 0.15);
+  --primary-soft: rgba(255, 125, 46, 0.16);
+
+  --line: rgba(246, 243, 236, 0.11);
+  --line-strong: rgba(246, 243, 236, 0.18);
+
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 16px 36px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 2px 8px rgba(0, 0, 0, 0.5), 0 30px 70px rgba(0, 0, 0, 0.62);
+
+  --header: rgba(20, 19, 16, 0.78);
+  --scrim: rgba(0, 0, 0, 0.62);
+}
+
+/* ─── FONT SIZE SCALING ─────────────────────────────────────────────────────── */
+
+:root {
+  --font-scale: 1;
+}
+
+[data-font-size="large"] {
+  --font-scale: 1.12;
+}
+
+/* Extra Large / Max — accessibility sizes. Scales are kept moderate so
+   tables, cards, charts and admin pages reflow instead of breaking
+   (layout widths use rem/%, so everything grows together). */
+[data-font-size="xl"] {
+  --font-scale: 1.24;
+}
+
+[data-font-size="max"] {
+  --font-scale: 1.4;
+}
+
+[data-font-size="small"] {
+  --font-scale: 0.9;
+}
+
+/* ─── BASE RESET ────────────────────────────────────────────────────────────── */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: calc(16px * var(--font-scale));
+}
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  transition: background 0.3s var(--ease-out), color 0.3s var(--ease-out);
+}
+
+h1, h2, h3, h4, .disp {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+}
+
+button, input, select, textarea {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+a {
+  color: inherit;
+}
+
+::selection {
+  background: var(--primary-soft);
+}
+
+/* ─── SCROLLBAR ──────────────────────────────────────────────────────────────── */
+
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--line-strong); border-radius: 99px; }
+::-webkit-scrollbar-thumb:hover { background: var(--text-faint); }
+
+/* ─── ANIMATIONS ─────────────────────────────────────────────────────────────── */
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: none; }
+}
+
+@keyframes menuIn {
+  from { opacity: 0; transform: translateY(-7px) scale(0.96); }
+  to   { opacity: 1; transform: none; }
+}
+
+@keyframes modalIn {
+  from { opacity: 0; transform: translateY(22px) scale(0.97); }
+  to   { opacity: 1; transform: none; }
+}
+
+@keyframes scrimIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes springIn {
+  from { opacity: 0; transform: scale(0.92); }
+  to   { opacity: 1; transform: none; }
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.4; }
+}
+
+/* ─── UTILITY CLASSES (not covered by Tailwind config) ──────────────────────── */
+
+.safe-bottom { padding-bottom: var(--safe-b); }
+.safe-top    { padding-top: var(--safe-t); }
+
+/* Card surfaces */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  padding: 18px 20px;
+  box-shadow: var(--shadow);
+}
+
+/* Stat card */
+.stat-num {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 600;
+  font-size: 29px;
+  line-height: 1.1;
+  color: var(--text);
+}
+
+/* Form fields */
+.field {
+  width: 100%;
+  font-size: 14px;
+  padding: 11px 12px;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--r-sm);
+  background: var(--field);
+  color: var(--text);
+  transition: border-color 0.16s var(--ease-out), box-shadow 0.16s var(--ease-out);
+}
+
+.field::placeholder { color: var(--text-faint); }
+
+.field:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px var(--primary-soft);
+}
+
+/* Browser autofill turns inputs white in dark theme — repaint them to match
+   the field. The huge inset box-shadow overrides Chrome's forced background. */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill {
+  -webkit-text-fill-color: var(--text);
+  -webkit-box-shadow: 0 0 0 1000px var(--field) inset;
+  box-shadow: 0 0 0 1000px var(--field) inset;
+  caret-color: var(--text);
+  transition: background-color 100000s ease-in-out 0s;
+}
+
+/* Tags / pills */
+.tag {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 9px;
+  border-radius: 6px;
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.tag-success  { background: var(--success-soft);  color: var(--success);  }
+.tag-warning  { background: var(--warning-soft);  color: var(--warning);  }
+.tag-danger   { background: var(--danger-soft);   color: var(--danger);   }
+.tag-primary  { background: var(--primary-soft);  color: var(--primary);  }
+.tag-neutral  { background: var(--section);       color: var(--text-dim); }
+
+/* Table wrapper for horizontal scroll */
+.table-wrap {
+  width: 100%;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  border-radius: var(--r);
+  border: 1px solid var(--line);
+}
+
+/* Trend indicators */
+.trend-up    { color: var(--success); font-weight: 600; }
+.trend-down  { color: var(--danger);  font-weight: 600; }
+.trend-mid   { color: var(--text-faint); font-weight: 600; }
+
+/* Skeleton loading placeholder (token-driven, adapts to light/dark) */
+.skeleton {
+  position: relative;
+  overflow: hidden;
+  background: var(--surface-soft);
+}
+
+.skeleton::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(90deg, transparent, var(--line-strong), transparent);
+  animation: shimmer 1.5s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  100% { transform: translateX(100%); }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-delay: 0s !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
